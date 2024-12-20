@@ -1,0 +1,231 @@
+---
+title: "MLBSprayChartShinyApp"
+author: "Joel Winner.127"
+date: "2024-12-20"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#packages
+```{r}
+library(baseballr)
+library(tidyverse)
+library(sportyR)
+library(shiny)
+library(bslib)
+```
+
+# Scrape Stat Cast data from Baseball Savant using baseballr
+```{r}
+# Due to large amounts of data, scraping needs to be done a few days at a time
+
+
+march_data <- scrape_statcast_savant_batter_all("2024-03-20", "2024-03-31")
+
+# APRIL DATA
+april_data_1 <- scrape_statcast_savant_batter_all("2024-04-01", "2024-04-06")
+april_data_2 <- scrape_statcast_savant_batter_all("2024-04-07", "2024-04-10")
+april_data_3 <- scrape_statcast_savant_batter_all("2024-04-11", "2024-04-13")
+april_data_4 <- scrape_statcast_savant_batter_all("2024-04-14", "2024-04-16")
+april_data_5 <- scrape_statcast_savant_batter_all("2024-04-17", "2024-04-19")
+april_data_6 <- scrape_statcast_savant_batter_all("2024-04-20", "2024-04-21")
+april_data_7 <- scrape_statcast_savant_batter_all("2024-04-22", "2024-04-24")
+april_data_8 <- scrape_statcast_savant_batter_all("2024-04-25", "2024-04-27")
+april_data_9 <- scrape_statcast_savant_batter_all("2024-04-28", "2024-04-29")
+april_data_10 <- scrape_statcast_savant_batter_all("2024-04-30", "2024-04-30")
+
+april_data <- rbind(april_data_2, april_data_2, april_data_3, april_data_4, april_data_5, april_data_6, april_data_7, april_data_8, april_data_9, april_data_10)
+
+# MAY DATA
+may_data_1 <- scrape_statcast_savant_batter_all("2024-05-01", "2024-05-02")
+may_data_2 <- scrape_statcast_savant_batter_all("2024-05-03", "2024-05-06")
+may_data_3 <- scrape_statcast_savant_batter_all("2024-05-07", "2024-05-09")
+may_data_4 <- scrape_statcast_savant_batter_all("2024-05-10", "2024-05-12")
+may_data_5 <- scrape_statcast_savant_batter_all("2024-05-13", "2024-05-15")
+may_data_6 <- scrape_statcast_savant_batter_all("2024-05-16", "2024-05-18")
+may_data_7 <- scrape_statcast_savant_batter_all("2024-05-19", "2024-05-19")
+may_data_8 <- scrape_statcast_savant_batter_all("2024-05-20", "2024-05-23")
+may_data_9 <- scrape_statcast_savant_batter_all("2024-05-24", "2024-05-26")
+may_data_10 <- scrape_statcast_savant_batter_all("2024-05-27", "2024-05-31")
+
+may_data <- rbind(may_data_1, may_data_2, may_data_3, may_data_4, may_data_5, may_data_6, may_data_7, may_data_8, may_data_9, may_data_10)
+
+# JUNE DATA
+
+june_data_1 <- scrape_statcast_savant_batter_all("2024-06-01", "2024-06-03")
+june_data_2 <- scrape_statcast_savant_batter_all("2024-06-04", "2024-06-06")
+june_data_3 <- scrape_statcast_savant_batter_all("2024-06-07", "2024-06-09")
+june_data_4 <- scrape_statcast_savant_batter_all("2024-06-10", "2024-06-12")
+june_data_5 <- scrape_statcast_savant_batter_all("2024-06-13", "2024-06-15")
+june_data_6 <- scrape_statcast_savant_batter_all("2024-06-16", "2024-06-18")
+june_data_7 <- scrape_statcast_savant_batter_all("2024-06-19", "2024-06-20")
+june_data_8 <- scrape_statcast_savant_batter_all("2024-06-21", "2024-06-23")
+june_data_9 <- scrape_statcast_savant_batter_all("2024-06-24", "2024-06-26")
+june_data_10 <- scrape_statcast_savant_batter_all("2024-06-27", "2024-06-30")
+
+june_data <- rbind(june_data_1, june_data_2, june_data_3, june_data_4, june_data_5, june_data_6, june_data_7, june_data_8, june_data_9, june_data_10)
+
+#JULY DATA
+
+july_data_1 <- scrape_statcast_savant_batter_all("2024-07-01", "2024-07-03")
+july_data_2 <- scrape_statcast_savant_batter_all("2024-07-04", "2024-07-06")
+july_data_3 <- scrape_statcast_savant_batter_all("2024-07-07", "2024-07-09")
+july_data_4 <- scrape_statcast_savant_batter_all("2024-07-10", "2024-07-12")
+july_data_5 <- scrape_statcast_savant_batter_all("2024-07-13", "2024-07-15")
+july_data_6 <- scrape_statcast_savant_batter_all("2024-07-16", "2024-07-18")
+july_data_7 <- scrape_statcast_savant_batter_all("2024-07-19", "2024-07-20")
+july_data_8 <- scrape_statcast_savant_batter_all("2024-07-21", "2024-07-23")
+july_data_9 <- scrape_statcast_savant_batter_all("2024-07-24", "2024-07-26")
+july_data_10 <- scrape_statcast_savant_batter_all("2024-07-27", "2024-07-28")
+july_data_10 <- scrape_statcast_savant_batter_all("2024-07-29", "2024-07-31")
+
+july_data <- rbind(july_data_1, july_data_2, july_data_3, july_data_4, july_data_5, july_data_6, july_data_7, july_data_8, july_data_9, july_data_10)
+
+
+aug_data_1 <- scrape_statcast_savant_batter_all("2024-08-01", "2024-08-03")
+aug_data_2 <- scrape_statcast_savant_batter_all("2024-08-04", "2024-08-06")
+aug_data_3 <- scrape_statcast_savant_batter_all("2024-08-07", "2024-08-09")
+aug_data_4 <- scrape_statcast_savant_batter_all("2024-08-10", "2024-08-12")
+aug_data_5 <- scrape_statcast_savant_batter_all("2024-08-13", "2024-08-15")
+aug_data_6 <- scrape_statcast_savant_batter_all("2024-08-16", "2024-08-18")
+aug_data_7 <- scrape_statcast_savant_batter_all("2024-08-19", "2024-08-19")
+aug_data_8 <- scrape_statcast_savant_batter_all("2024-08-20", "2024-08-22")
+aug_data_9 <- scrape_statcast_savant_batter_all("2024-08-23", "2024-08-25")
+aug_data_10 <- scrape_statcast_savant_batter_all("2024-08-26", "2024-08-28")
+aug_data_10 <- scrape_statcast_savant_batter_all("2024-08-29", "2024-08-31")
+
+aug_data <- rbind(aug_data_1, aug_data_2, aug_data_3, aug_data_4, aug_data_5, aug_data_6, aug_data_7, aug_data_8, aug_data_9, aug_data_10)
+
+
+
+sept_data_1 <- scrape_statcast_savant_batter_all("2024-09-01", "2024-09-03")
+sept_data_2 <- scrape_statcast_savant_batter_all("2024-09-04", "2024-09-06")
+sept_data_3 <- scrape_statcast_savant_batter_all("2024-09-07", "2024-09-09")
+sept_data_4 <- scrape_statcast_savant_batter_all("2024-09-10", "2024-09-12")
+sept_data_5 <- scrape_statcast_savant_batter_all("2024-09-13", "2024-09-15")
+sept_data_6 <- scrape_statcast_savant_batter_all("2024-09-16", "2024-09-18")
+sept_data_7 <- scrape_statcast_savant_batter_all("2024-09-19", "2024-09-19")
+sept_data_8 <- scrape_statcast_savant_batter_all("2024-09-20", "2024-09-23")
+sept_data_9 <- scrape_statcast_savant_batter_all("2024-09-24", "2024-09-26")
+sept_data_10 <- scrape_statcast_savant_batter_all("2024-09-27", "2024-09-29")
+sept_data_10 <- scrape_statcast_savant_batter_all("2024-09-30", "2024-09-30")
+
+sept_data <- rbind(sept_data_1, sept_data_2, sept_data_3, sept_data_4, sept_data_5, sept_data_6, sept_data_7, sept_data_8, sept_data_9, sept_data_10)
+
+nov_data <- scrape_statcast_savant_batter_all("2024-10-01", "2024-10-02")
+```
+
+# Combine data
+```{r}
+raw_MLB_data <- rbind(march_data, april_data, may_data, june_data, july_data, aug_data, sept_data, nov_data)
+```
+
+# data manipulation
+```{r}
+# filter out NA value from x and coord for hit locations, all entries with hc_x value will have
+# hc_y value as well so only need to filter for one
+
+filtered_data <- raw_MLB_data %>% filter(!is.na(hc_x))
+
+# following scaling measurements for coordinates given inside the book "Exploring Baseball Data with R" to convert coordinates onto a baseball field for graphing
+
+scaled_data <- filtered_data %>% mutate(x_coord = 2.5 * (hc_x - 125.42), y_coord = 2.5 * (198.27 - hc_y))
+
+# formatting events labels
+  
+final_scaled_data <- scaled_data %>% 
+  mutate(events = case_when(events %in% c("single", "double", "triple", "home_run", "field_error") ~ events,
+  TRUE ~ "out"
+))
+
+final_scaled_data %>% 
+  mutate(results = case_when(events == "single" ~ "Single",
+                            events == "double" ~ "Double",
+                            events == "triple" ~ "Triple",
+                            events == "home_run" ~ "Home Run",
+                            events == "field_error" ~ "Error",
+                            TRUE ~ "Out")) -> final_scaled_data
+```
+
+# Shiny app
+```{r}
+# Define UI
+ui <- fluidPage(
+  theme = bs_theme(preset = "sketchy"),
+  titlePanel("Batter Spray Chart"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      wellPanel(
+        tags$h4("Options"),
+        selectInput(
+          inputId = "batter_choice",
+          label = "Choose a Batter:",
+          choices = NULL
+        ),
+        checkboxGroupInput(
+          inputId = "event_choice",
+          label = "Select Event Types:",
+          choices = c("Single", "Double", "Triple", "Home Run", "Error", "Out"),
+          selected = c("Single", "Double", "Triple", "Home Run")
+        ),
+        sliderInput(
+          inputId = "angle_range",
+          label = "Launch Angle Range:",
+          min = -80,
+          max = 80,
+          value = c(25,35),
+          step = 1
+        )
+      )
+    ),
+    
+    mainPanel(
+      plotOutput("spray_chart"),
+      plotOutput("launch_chart")
+    )
+  )
+)
+# Define server
+server <- function(input, output, session) {
+  
+  # Populate batter choices in the dropdown menu
+  observe({
+    updateSelectInput(session, "batter_choice",
+                      choices = sort(unique(final_scaled_data$player_name)))
+  })
+  
+  output$spray_chart <- renderPlot({
+    req(input$batter_choice, input$event_choice)
+    
+    batter_data <- subset(final_scaled_data,
+                          player_name == input$batter_choice &
+                            results %in% input$event_choice)
+    
+    geom_baseball(league = "MLB") +
+    geom_point(data = batter_data, aes(x_coord, y_coord, color = results)) + 
+    ggtitle(paste(input$batter_choice, " Spray Chart 2024 Season")) 
+  })
+  
+  output$launch_chart <- renderPlot({
+    req(input$batter_choice)
+    
+    batter_data <- subset(final_scaled_data,
+                          player_name == input$batter_choice &
+                          launch_angle >= input$angle_range[1] &
+                          launch_angle <= input$angle_range[2])
+    
+    geom_baseball(league = "MLB") +
+    geom_point(data = batter_data, aes(x_coord, y_coord, color = results)) + 
+    ggtitle(paste(input$batter_choice, ", launch angle spray chart"))
+  })
+  
+  
+}
+
+shinyApp(ui = ui, server = server)
+```
+
